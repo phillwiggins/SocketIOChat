@@ -11,7 +11,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.net.URISyntaxException
 
-private const val BASE_URL = "http://45.76.129.16:4678"
+private const val BASE_URL = "http://45.76.129.16:3000"
 private const val MESSAGE_USERNAME = "username"
 private const val MESSAGE_IS_ONLINE = "is_online"
 private const val MESSAGE_DISCONNECT = "disconnect"
@@ -31,6 +31,7 @@ object SocketChat : ChatService {
     override fun initSocket(baseURL: String): Flow<Resource<String>> {
         try {
             socket = IO.socket(BASE_URL)
+            socket.connect()
             Log.v("SocketChat", socket.id())
         } catch (e: URISyntaxException) {
             Log.e("SocketChat", "Shit went wrong")
@@ -43,7 +44,6 @@ object SocketChat : ChatService {
         socket.on(MESSAGE_DISCONNECT, onNewMessage)
         socket.on(MESSAGE_CHAT_MESSAGE, onNewMessage)
 
-        socket.connect()
 
         flow = MutableStateFlow(Resource.loading())
         return flow
