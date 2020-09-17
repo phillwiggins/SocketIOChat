@@ -1,4 +1,4 @@
-package com.purewowstudio.socketiochat.ui.login
+package com.purewowstudio.socketiochat.ui.screens.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-class LoginViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
-    private val viewState = MutableLiveData<LoginViewState>()
-    val _state: LiveData<LoginViewState> = viewState
+    private val viewState = MutableLiveData<MainViewState>()
+    val _state: LiveData<MainViewState> = viewState
 
     init {
         viewModelScope.launch {
@@ -31,10 +31,10 @@ class LoginViewModel : ViewModel() {
     private fun onResult(result: Result<String>) {
         when (result) {
             is Result.Success -> viewState.value =
-                LoginViewState.Success(message = result.data)
+                MainViewState.Success(message = result.data)
             is Result.Error -> viewState.value =
-                LoginViewState.Success(message = result.message)
-            is Result.Loading -> viewState.value = LoginViewState.Success(isLoading = true)
+                MainViewState.Success(message = result.message)
+            is Result.Loading -> viewState.value = MainViewState.Success(isLoading = true)
         }
     }
 

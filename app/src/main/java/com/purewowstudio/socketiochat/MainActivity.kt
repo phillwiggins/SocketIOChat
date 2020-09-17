@@ -2,7 +2,7 @@ package com.purewowstudio.socketiochat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.purewowstudio.socketiochat.ui.main.MainFragment
+import com.purewowstudio.socketiochat.ui.screens.login.LoginFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, LoginFragment.newInstance())
                     .commitNow()
         }
     }
