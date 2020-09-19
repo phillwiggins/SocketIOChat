@@ -6,6 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +24,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-class LoginFragment : Fragment(R.layout.main_fragment) {
+class LoginFragment : Fragment() {
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -29,10 +37,14 @@ class LoginFragment : Fragment(R.layout.main_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return ComposeView(requireContext()).apply {
             setContent {
                 SocketIOChatTheme {
-                    Text(text = "Hello")
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Text(text = "SocketIO Chat", style = MaterialTheme.typography.h1)
+                        UsernameField()
+                    }
                 }
             }
         }
@@ -49,4 +61,17 @@ class LoginFragment : Fragment(R.layout.main_fragment) {
                 view?.findViewById<TextView>(R.id.message)?.text = it.message
         })
     }
+}
+
+@Composable
+fun UsernameField() {
+
+    val usernameField = remember { mutableStateOf("Test") }
+
+    TextField(
+        value = usernameField.value,
+        onValueChange = {
+            usernameField.value = it
+        }
+    )
 }
